@@ -21,21 +21,14 @@ function Nav( name, rating, released, background_image, id ) {
                     <li className="nav-link">
                         <NavLink to="/contact">Contact</NavLink>
                     </li>
-                    <li className="nav-link">
-                        <NavLink to="/game/:id">Details</NavLink>
-                    </li>
                 </ul>
             </nav>
-        <Switch>
-            <Route path="/game/:id"  exact component={GameDetails} />
-            
-            <Route path="/" exact component={Home} />
-            <Route path="/contact" exact component={Contact} />
-            
-        </Switch>
-        
+            <Switch>
+                <Route path="/game/:id"  exact component={GameDetails} />
+                <Route path="/" exact component={Home} />
+                <Route path="/contact" exact component={Contact} />           
+            </Switch>       
         </Router>
-    
     )
 };
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Spinner from "react-bootstrap/Spinner";
 import { Link } from 'react-router-dom';
 import { BASE_URL } from "../constants/GameApi";
 import Search from "../search/Search";
@@ -8,6 +9,7 @@ import Search from "../search/Search";
 function GameData() {
     const [ apiData, SetApiData ] = useState([]);
     const [ filteredApiData, SetFilteredApiData ] = useState([])
+    const [loading, setLoading] = useState(true);
 
  
     useEffect(function() {
@@ -23,7 +25,11 @@ function GameData() {
         .catch(function(error) {
             console.log(error)
         })
+        .finally(() => setLoading(false));
     }, []);
+    if (loading) {
+		return <Spinner variant="light" animation="border" className="spinner" />;
+	}
     
     const filterItems = function(e) {
         const searchValue = e.target.value.toLowerCase();

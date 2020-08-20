@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import Spinner from "react-bootstrap/Spinner";
 import { BASE_URL } from "../constants/GameApi";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+
 function GameDetails() {
    let { id } = useParams();
     
     const [ cardDetails, setCardDetails] = useState([]);
-    console.log(cardDetails.id);
+    const [ loading, setLoading ] = useState(true);
     const name = cardDetails.name;
     const rating = cardDetails.rating;
     const released = cardDetails.released;
@@ -24,10 +26,13 @@ function GameDetails() {
         .catch(function(error) {
             console.log(error)
         })
-    }, [])
-
+        .finally(() => setLoading(false));
+    }, []);
+    if (loading) {
+        return <Spinner animation="border" variant="light" className="spinner"/>
+    }
     return (
-        
+        <>
                     <div className="details-wrap">  
                         <h3 className="gameTitle">Title: {name}</h3>
                         <img className="image" src={background_image} alt={name}/>
@@ -37,6 +42,7 @@ function GameDetails() {
                         <div className="gameTitle">Description: {description}</div>
                         <a href={websiteLink}><p className="link-button">Link to game webpage</p></a>
                     </div> 
+        </>
                 )
 
 }
